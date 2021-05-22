@@ -5,7 +5,7 @@ Ejemplo básico de implementación de DAOs y su aplicación con swing.
 1. Clonar/Descargar el proyecto
 2. Crear la base de datos con los scripts de la carpeta **sql**
 3. Editar la clase *_dao.DAO_* y en el constructor poner tus datos de conexión (cambiar la password)
-4. Ejecutar el proyecto
+4. Ejecutar el proyecto en Netbeans
 
 En la aplicación solo funciona el módulo de **_Consola_** por ahora. Pero están todos los DAO.  
   &nbsp;
