@@ -1,6 +1,7 @@
 package gui;
 
 import dao.ConsolaDAO;
+import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -69,7 +70,6 @@ public class FormConsola extends javax.swing.JFrame {
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setMaximumSize(new java.awt.Dimension(600, 400));
     setMinimumSize(new java.awt.Dimension(600, 400));
-    setPreferredSize(new java.awt.Dimension(600, 400));
     setResizable(false);
 
     jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -226,16 +226,24 @@ public class FormConsola extends javax.swing.JFrame {
   }//GEN-LAST:event_btnModificarActionPerformed
 
   private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-    //  Capturar el id del campo
-    int id = Integer.parseInt(textId.getText());
+    //  Obtener el id del elemento seleccionado
+    int selectedRow = jTable1.getSelectedRow();
+    int id = (int) jTable1.getValueAt(selectedRow, 0);
     
-    //  Elimina el registro de la base de datos
-    new ConsolaDAO().eliminar(id);
+    try {
+      //  Eliminar el registro de la base de datos
+      new ConsolaDAO().eliminar(id);
+      
+    } catch (Exception e) {
+      //  Si hay error mostrar mensaje y no ejecutar el resto del código
+      JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Error de SQL", JOptionPane.ERROR_MESSAGE);
+      return;
+    }
     
-    //  Elimina la fila de la tabla
+    //  Eliminar la fila de la tabla
     DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-    model.removeRow(id - 1);
-    model.fireTableDataChanged();
+    model.removeRow(selectedRow);
+    model.fireTableRowsDeleted(selectedRow, selectedRow);
   }//GEN-LAST:event_btnEliminarActionPerformed
 
   /**

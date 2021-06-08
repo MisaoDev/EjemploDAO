@@ -159,6 +159,8 @@ public class UsuarioDAO extends DAO {
       //  Primero borramos todos los registros asociados a este usuario en la tabla intermedia
       stmt = conn.prepareStatement("DELETE FROM usuario_juego WHERE id_usuario = ?");
       stmt.setInt(1, id);
+      stmt.executeUpdate();
+      stmt.close();
       
       //  Luego insertamos los registros que le corresponden, de la misma manera
       for (Juego juego : usuario.getJuegos()) {
